@@ -1,6 +1,8 @@
 # Object Detection/segmentation Based On Thresholding 
 
-The current algorithmus was designed to segment images in order to detect the arm of the robot as well as the object on the image [see image](./image_outputs/binocular_view.png)
+<p>The current algorithmus was designed to segment images in order to detect the arm of the robot as well as the object on the image</p>
+
+<img src="./image_outputs/binocular_view.png" alt="image" style="width:42px;height:42px;">
 
 
 ## Dependencies
@@ -38,11 +40,10 @@ To run the algorithmus, the following libraries should be installed:
     <li><i>Install the OpenCV packages </i></li>
         <p> After the build process is completed, install the package. You will need sudo privileges to do so:</p>
             <p><mark>sudo make install</mark></p>
-    
-    If none error ist found, OpenCV is installed successfully on your Linux system. The header files could be found at the location 
-
-            /usr/local/include/opencv4
 </ol>
+<p> If none error ist found, OpenCV is installed successfully on your Linux system. The header files could be found at the location </p>
+        <p><mark>/usr/local/include/opencv4</p></mark>
+
 </body>
 </html>
 
