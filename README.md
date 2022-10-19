@@ -8,8 +8,7 @@
 ## Dependencies
 
 <p> To run the algorithmus, the following <strong>libraries should be installed:</strong></p>
-    
-        <p><mark>OpenCV >= 4.6.0 </mark></p>
+        <pre class="notranslate"><code> OpenCV >= 4.6.0 </code></pre> 
 
 ###  Installing OpenCV on Linux
 
@@ -20,30 +19,30 @@
 
 <ol>
     <li><i>Installing required packages and tools</i></li>
-    <p><mark>sudo apt install -y g++ cmake make git libgtk2.0-dev pkg-config </mark></p>
+    <pre class="notranslate"><code> sudo apt install -y g++ cmake make git libgtk2.0-dev pkg-config  </code></pre> 
     <li><i>Download the source</i></li>
     <ul>
         <li> First of all, we need to clone the correspondently version of OpenCV. To find the all versions, visit this website and click on the GitHub icon of the latest version. </li>
         <li> On the GitHub page, copy the HTTPS link from the code button.</li>
-        <li> On the terminal, type the following command </liS>
-                <p><mark>git clone url</mark></p> 
+        <li> On the terminal, type the following command </li>
+                <pre class="notranslate"><code> git clone url </code></pre> 
             <p>paste the link using the shortcut key <mark> Ctrl + shift + v </mark></p>
     </ul>
     <li><i>Build the source</i></li>
     <ul>
         <li> Create the build directory and go into it using the following command: </li>
-                    <p><mark> mkdir -p build && cd build </mark></p>
+                    <pre class="notranslate"><code>  mkdir -p build && cd build </code></pre>
         <li> Generate the build scripts using cmake: </li>
-            <p><mark> cmake ../opencv </mark></p>
+            <pre class="notranslate"><code>  cmake ../opencv </code></pre>
         <li>  Build the source using make </li>
-            <p><mark> make -j4 </p></mark>
+            <pre class="notranslate"><code>  make -j4 </code></pre>
     <li><i>Install the OpenCV packages </i></li>
         <p> After the build process is completed, install the package. You will need sudo privileges to do so:</p>
         <pre class="notranslate"><code>  sudo make install </code></pre>
             
 </ol>
 <p> If none error ist found, OpenCV is installed successfully on your Linux system. The header files could be found at the location </p>
-        <p><mark>/usr/local/include/opencv4</p></mark>
+        <pre class="notranslate"><code>/usr/local/include/opencv4</code></pre>
 
 </body>
 </html>
