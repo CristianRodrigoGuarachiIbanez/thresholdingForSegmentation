@@ -2,14 +2,14 @@
 
 <p>The current algorithmus was designed to segment images in order to detect the arm of the robot as well as the object on the image</p>
 
-<img src="./image_outputs/binocular_view.png" alt="image" style="width:42px;height:42px;">
+<img src="./segmented_output/back_1.png" alt="image" style="width:42px;height:42px;">
 
 
 ## Dependencies
 
-To run the algorithmus, the following libraries should be installed:
+<p> To run the algorithmus, the following <strong>libraries should be installed:</strong></p>
     
-        OpenCV >= 4.6.0 
+        <p><mark>OpenCV >= 4.6.0 </mark></p>
 
 ###  Installing OpenCV on Linux
 
