@@ -14,11 +14,11 @@ To run the algorithmus, the following libraries should be installed:
 
 This library can download from the source: 
 
-    I  __Installing required packages and tools__
+    I  *Installing required packages and tools*
 
         sudo apt install -y g++ cmake make git libgtk2.0-dev pkg-config
     
-    II __Download the source__
+    II  *Download the sour*
 
         1. First of all, we need to clone the correspondently version of OpenCV. To find the all versions, visit this website and click on the GitHub icon of the latest version. 
         2. On the GitHub page, copy the HTTPS link from the code button.
@@ -28,7 +28,7 @@ This library can download from the source:
 
             paste the link using the shortcut key Ctrl + shift + v
     
-    III __Build the source__
+    III *Build the sour*
         
         1.  Create the build directory and go into it using the following command:
 
@@ -42,7 +42,7 @@ This library can download from the source:
 
             make -j4
 
-    IV __Install the OpenCV package__
+    IV *Install the OpenCV packa*
 
 
         1. After the build process is completed, install the package. You will need sudo privileges to do so:
