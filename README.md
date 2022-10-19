@@ -36,6 +36,7 @@
             <pre class="notranslate"><code>  cmake ../opencv </code></pre>
         <li>  Build the source using make </li>
             <pre class="notranslate"><code>  make -j4 </code></pre>
+    </ul>
     <li><i>Install the OpenCV packages </i></li>
         <p> After the build process is completed, install the package. You will need sudo privileges to do so:</p>
         <pre class="notranslate"><code>  sudo make install </code></pre>
