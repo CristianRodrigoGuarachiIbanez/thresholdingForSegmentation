@@ -19,7 +19,7 @@ To run the algorithmus, the following libraries should be installed:
 <ol>
     <li><i>Installing required packages and tools</i></li>
 
-        sudo apt install -y g++ cmake make git libgtk2.0-dev pkg-config
+    <p><mark>sudo apt install -y g++ cmake make git libgtk2.0-dev pkg-config </mark></p>
     
     <li><i>Download the source</i></li>
 
