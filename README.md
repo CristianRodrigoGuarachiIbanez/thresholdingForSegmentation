@@ -20,23 +20,24 @@ To run the algorithmus, the following libraries should be installed:
     <li><i>Installing required packages and tools</i></li>
     <p><mark>sudo apt install -y g++ cmake make git libgtk2.0-dev pkg-config </mark></p>
     <li><i>Download the source</i></li>
-        1. First of all, we need to clone the correspondently version of OpenCV. To find the all versions, visit this website and click on the GitHub icon of the latest version. 
-        2. On the GitHub page, copy the HTTPS link from the code button.
-        3. On the terminal, type the following command 
-                git clone url 
-            paste the link using the shortcut key Ctrl + shift + v
+    <ul>
+        <li> First of all, we need to clone the correspondently version of OpenCV. To find the all versions, visit this website and click on the GitHub icon of the latest version. </li>
+        <li> On the GitHub page, copy the HTTPS link from the code button.</li>
+        <li> On the terminal, type the following command </liS>
+                <p><mark>git clone url</mark></p> 
+            <p>paste the link using the shortcut key <mark> Ctrl + shift + v </mark></p>
+    </ul>
     <li><i>Build the source</i></li>
-        1.  Create the build directory and go into it using the following command:
-                    mkdir -p build && cd build
-        2. Generate the build scripts using cmake:
-            cmake ../opencv
-        3.  Build the source using make
-            make -j4
+    <ul>
+        <li> Create the build directory and go into it using the following command: </li>
+                    <p><mark> mkdir -p build && cd build </mark></p>
+        <li> Generate the build scripts using cmake: </li>
+            <p><mark> cmake ../opencv </mark></p>
+        <li>  Build the source using make </li>
+            <p><mark> make -j4 </p></mark>
     <li><i>Install the OpenCV packages </i></li>
-
-        1. After the build process is completed, install the package. You will need sudo privileges to do so:
-
-            sudo make install
+        <p> After the build process is completed, install the package. You will need sudo privileges to do so:</p>
+            <p><mark>sudo make install</mark></p>
     
     If none error ist found, OpenCV is installed successfully on your Linux system. The header files could be found at the location 
 
