@@ -11,14 +11,17 @@ To run the algorithmus, the following libraries should be installed:
 
 ###  Installing OpenCV on Linux
 
+<html>
+<body>
 
-This library can download from the source: 
+<p>This library can download from the source:</p> 
+
 
     I  *Installing required packages and tools*
 
         sudo apt install -y g++ cmake make git libgtk2.0-dev pkg-config
     
-    II  *Download the sour*
+    II  *Download the source*
 
         1. First of all, we need to clone the correspondently version of OpenCV. To find the all versions, visit this website and click on the GitHub icon of the latest version. 
         2. On the GitHub page, copy the HTTPS link from the code button.
@@ -53,7 +56,8 @@ This library can download from the source:
 
             /usr/local/include/opencv4
 
-
+</body>
+</html>
 
 ## Run 
 
