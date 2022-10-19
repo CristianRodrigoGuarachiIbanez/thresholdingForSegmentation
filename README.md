@@ -39,7 +39,8 @@
             <p><mark> make -j4 </p></mark>
     <li><i>Install the OpenCV packages </i></li>
         <p> After the build process is completed, install the package. You will need sudo privileges to do so:</p>
-            <p><mark>sudo make install</mark></p>
+        <pre class="notranslate"><code>  sudo make install </code></pre>
+            
 </ol>
 <p> If none error ist found, OpenCV is installed successfully on your Linux system. The header files could be found at the location </p>
         <p><mark>/usr/local/include/opencv4</p></mark>
