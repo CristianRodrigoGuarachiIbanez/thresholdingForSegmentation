@@ -2,7 +2,7 @@
 
 <p>The current algorithmus was designed to segment images in order to detect the arm of the robot as well as the object on the image</p>
 
-<img src="./segmented_output/back_1.png" alt="image" style="width:42px;height:42px;">
+<img src="./segmented_output/back_1.png" alt="image" style="width:42px;height:42px;" width="500" height="333>
 
 
 ## Dependencies
