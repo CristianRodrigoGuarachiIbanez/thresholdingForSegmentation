@@ -53,7 +53,7 @@ Navigate to the file ./ThresholdingForSegmentation/, where the main.cpp file is 
 
         g++ main.cpp objectDetector.cpp -o objectDetector ./directoryWalker/dirWalker.cpp -lstdc++fs `pkg-config --cflags --libs opencv`
 
-Dont forget to use the links for filesystem -> -lstdc++fs und the one for the opencv libs `pkg-config --cflags --libs opencv`.
+Dont forget to use the links for filesystem `-lstdc++fs` und the one for the opencv libs `pkg-config --cflags --libs opencv`.
 
-Once compilated, the file the command ./objectDetector should be excecuted 
+Once compilated, the file the command `./objectDetector` should be excecuted 
     
