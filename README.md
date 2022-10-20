@@ -1,7 +1,7 @@
 # Object Detection/segmentation Based On Thresholding 
 
-<p>The current algorithmus was designed to segment images in order to detect the arm of the robot as well as the object on the image
-on the iCub Simulator</p>
+<p>The current algorithmus was designed to segment images in order to detect the arm of the robot as well as the object on the images delivered by 
+the cameras in the eyes from the iCub Simulator</p>
 
 <img src="./segmented_output/back_1.png" alt="image" width="500" height="333">
 
