@@ -8,8 +8,8 @@
 int armLow[] = {98,109,20}; //cv::Scalar(98,109,20); //cv::Scalar((int)(208/2), (int)((83/100)*255), (int)((28/100)*255));
 int armHigh[] = {112, 255, 255}; //cv::Scalar(112, 255, 255); //cv::Scalar((int)(213/2), (int)((87/100)*255), (int)((25/100)*255));
 
-int objectLow[] = {0, 70, 50};
-int objectHigh[] = {10, 100, 100};
+int objectLow[] = {120, 51, 51};
+int objectHigh[] = {180, 255, 76};
 
 
 int main(int argc, char * argv[]){
