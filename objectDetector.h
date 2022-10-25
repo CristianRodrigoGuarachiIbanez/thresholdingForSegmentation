@@ -36,14 +36,15 @@ namespace ObjDet{
 
     class ObjectDetector{
         public:
-            std::vector<ObjectElements> OBJECTS;
+            
             
             ObjectDetector(cv::Mat&image);
             ObjectDetector(cv::Mat&src, int lowLimit[3], int highLimit[3], Limits limit, Object object, bool iso);
             ~ObjectDetector();
-            void searchForContoursWithArrayRange(int lowLimit[3], int highLimit[3], Limits limits, Object object, bool iso);
+            void searchForContoursWithArrayRange(int lowLimit[3], int highLimit[3], Limits limits, Object object, bool iso, bool obj);
             void getChannels(std::string colorSpace);
             std::vector<COORDINATES> getObjectCoordinates();
+
             cv::Mat getBackground(){
                 if(background.empty()){
                     std::cerr << "Error\n";
@@ -62,15 +63,7 @@ namespace ObjDet{
                     return img;
                 }
             }
-            cv::Mat getRedChannel(){
-                return red;
-            }
-            cv::Mat getBlueChannel(){
-                return blue;
-            }
-            cv::Mat getGreenChannel(){
-                return green;
-            }
+     
             std::vector<cv::Mat> splittedChannels(){
                 if(spl.size()!=0){
                     return spl;
@@ -89,18 +82,23 @@ namespace ObjDet{
             }
 
         private:
+
             cv::Scalar low;
             cv::Scalar high;
             cv::Mat background, img, isolatedImage;
             cv::Mat blue, green, red;
             std::vector<cv::Mat> spl;
+            std::vector<ObjectElements> OBJECTS;
+            std::vector<cv::Rect>srcRects;
 
             void selectImage(cv::Mat&src, cv::Mat&img, int imageChannels);
             void duplicateMat(cv::Mat&src, cv::Mat&target);
-            void getObject( cv::Mat&img, cv::Scalar low, cv::Scalar high, Limits limits, Object object, bool iso);
+            void getObject( cv::Mat&img, cv::Scalar low, cv::Scalar high, Limits limits, Object object, bool iso, bool obj);
             void drawObject(cv::Mat&background);
+            void drawNMSObject(cv::Mat&background, std::vector<cv::Rect> Rects, Object object);
             void isolateObject(cv::Mat&inputHSV, cv::Mat&resultHSV, cv::Mat&mask, cv::Scalar minHSV, cv::Scalar maxHSV);
             void splitChannels(cv::Mat&image, cv::Mat&r, cv::Mat&g, cv::Mat&b);
+            void NonMaxSupp(std::vector<cv::Rect> srcRects, std::vector<cv::Rect> resRects, float threshold, float neighboors);
     };
 }
 

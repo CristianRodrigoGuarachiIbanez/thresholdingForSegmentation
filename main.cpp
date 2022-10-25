@@ -40,22 +40,18 @@ int main(int argc, char * argv[]){
         //Binary image
         ObjDet::ObjectDetector BWImage(listOfImages[i]);   
         
-        BWImage.searchForContoursWithArrayRange(armLow, armHigh, limits,  ObjDet::Object::ARM, true);
+        BWImage.searchForContoursWithArrayRange(armLow, armHigh, limits,  ObjDet::Object::ARM, true, false);
 
-        BWImage.searchForContoursWithArrayRange(objectLow, objectHigh, limits, ObjDet::Object::OBJECT, false);
+        BWImage.searchForContoursWithArrayRange(objectLow, objectHigh, limits, ObjDet::Object::OBJECT, false, false);
 
-        BWImage.searchForContoursWithArrayRange(handLow, handHigh, limits, ObjDet::Object::HAND, false);
+        BWImage.searchForContoursWithArrayRange(handLow, handHigh, limits, ObjDet::Object::HAND, false, false);
 
-        cv::imwrite("segmented_output/img_" + std::to_string(i) + ".png", BWImage.getImage());
+        //cv::imwrite("segmented_output/img_" + std::to_string(i) + ".png", BWImage.getImage());
 
         cv::imwrite("segmented_output/back_" + std::to_string(i) + ".png", BWImage.getBackground());
-        /*
-        objects = BWImage.getObjectCoordinates();
-        for(int i =0;i<objects.size();i++){
-            std::cout<< "X -> " << objects[i].tlx <<" Y -> "<< objects[i].tly <<" w -> " <<objects[i].brx <<" h -> "<< objects[i].bry<<std::endl;
-        }
-        cv::imshow("contours", BWImage.getBackground()); */
-    //cv::waitKey(0);
+    
+       
+
     }
     return 0;
 }

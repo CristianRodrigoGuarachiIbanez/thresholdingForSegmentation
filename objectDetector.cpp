@@ -2,6 +2,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
 #include "objectDetector.h"
+#include "NonMaximumSuppression/NMS.h"
 
 namespace ObjDet{
 
@@ -21,7 +22,7 @@ namespace ObjDet{
         this->duplicateMat(src, this->background);
         int channels = this->background.channels();
         selectImage(src, this->img, channels);
-        this->searchForContoursWithArrayRange(lowLimit, highLimit, limit, object, iso);
+        this->searchForContoursWithArrayRange(lowLimit, highLimit, limit, object, iso, true);
     }
 
     ObjectDetector::ObjectDetector(cv::Mat&image){
@@ -77,22 +78,31 @@ namespace ObjDet{
         }
     }
 
-    void ObjectDetector::searchForContoursWithArrayRange( int lowLimit[3], int highLimit[3], Limits limits, Object object, bool iso=false){
+    void ObjectDetector::searchForContoursWithArrayRange( int lowLimit[3], int highLimit[3], Limits limits, Object object, bool iso=false, bool obj=false){
 
         
-        this->getObject(this->img, cv::Scalar(lowLimit[0], lowLimit[1], lowLimit[2]) , cv::Scalar(highLimit[0], highLimit[1], highLimit[2]), limits, object, iso);
-        this->drawObject(this->background);
+        this->getObject(this->img, cv::Scalar(lowLimit[0], lowLimit[1], lowLimit[2]), cv::Scalar(highLimit[0], highLimit[1], highLimit[2]), limits, object, iso, obj);
+        
+        std::vector<cv::Rect> resRects;
+
+        this->NonMaxSupp(this->srcRects, resRects, 0.5f, 1);
+        
+        if(obj){
+            this->drawObject(this->background);
+        }else {
+            this->drawNMSObject(this->background, this->srcRects, object);
+        }
     }
 
     void ObjectDetector::duplicateMat(cv::Mat&src, cv::Mat&target){
         src.copyTo(target);
     }
 
-    void ObjectDetector::getObject(cv::Mat&img, cv::Scalar low, cv::Scalar high, Limits limits, Object object, bool iso) {
+    void ObjectDetector::getObject(cv::Mat&img, cv::Scalar low, cv::Scalar high, Limits limits, Object object, bool iso, bool obj) {
         
         cv::Mat mask;
         cv::inRange(img, low, high, mask);
-        // std::cout<< "low -> " << low[0] << " " << low[1]<< " " << low[2]<< " limits -> " << limits.area<< " " <<iso<<std::endl;
+
         if(iso){
 
             isolateObject(img, this->isolatedImage, mask, low, high);
@@ -101,37 +111,75 @@ namespace ObjDet{
         std::vector<std::vector<cv::Point>> contours;
         cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
         
-        for (size_t i = 0; i < contours.size(); i++)
-        {
+        this->srcRects.clear();
+
+        for (size_t i = 0; i < contours.size(); i++){
             cv::Rect boundRect = boundingRect(contours[i]);
 
-            //std::cout<< " AREA -> "<< boundRect.area() << " WIDTH -> "<< boundRect.width<< " HEIGHT -> "<< boundRect.height <<std::endl;
+            
             if (boundRect.area() > limits.area && (boundRect.width < limits.width || boundRect.height < limits.height)) {
-                this->OBJECTS.emplace_back(object, boundRect, boundRect.x + boundRect.width / 2, boundRect.y + boundRect.height / 2);
+                // std::cout<< " X -> "<< boundRect.x  << " Y -> "<< boundRect.y <<" WIDTH -> "<< boundRect.width<< " HEIGHT -> "<< boundRect.height <<std::endl;
+                
+                if(obj){
+                    
+                    this->OBJECTS.emplace_back(object, boundRect, boundRect.x + boundRect.width / 2, boundRect.y + boundRect.height / 2);
+                }else{
+                    //std::cout<< " X -> "<< boundRect.x  << " Y -> "<< boundRect.y <<" WIDTH -> "<< boundRect.width<< " HEIGHT -> "<< boundRect.height <<std::endl;
+            
+                    this->srcRects.emplace_back(cv::Point(boundRect.x, boundRect.y), cv::Point(boundRect.width + boundRect.x, boundRect.height + boundRect.y));
+                }
+                
+                
             }
         }
     }
 
     void ObjectDetector::drawObject(cv::Mat&background) {
-        //std::cout<<"SIZE -> "<<object.size()<<std::endl;
+
         for (size_t i = 0; i < OBJECTS.size(); i++) {
             switch (OBJECTS[i].object) {
             case ARM:
-                //std::cout<< "RECT BLACK -> "<< object[i].rect.tl() << " "<< object[i].rect.br() <<std::endl;
                 rectangle(background, OBJECTS[i].rect.tl(), OBJECTS[i].rect.br(), CV_RGB(255, 0, 0), 2);
+                //std::cout << "Point Arm  -> "<< OBJECTS[i].rect.tl() <<" point 2 -> "<< OBJECTS[i].rect.br() << std::endl;
                 break;
             case HAND:
-                //std::cout<< "RECT WHITE -> "<< object[i].rect.tl()<<std::endl;
                 rectangle(background, OBJECTS[i].rect.tl(), OBJECTS[i].rect.br(), CV_RGB(0, 255, 0), 2);
+                //std::cout << "Point hand  -> "<< OBJECTS[i].rect.tl() <<" point 2 -> "<< OBJECTS[i].rect.br() << std::endl;
                 break;
             case OBJECT:
                 rectangle(background, OBJECTS[i].rect.tl(), OBJECTS[i].rect.br(), CV_RGB(0, 0, 255), 2);
+                //std::cout << "Point Obj -> "<< OBJECTS[i].rect.tl() <<" point 2 -> "<< OBJECTS[i].rect.br() << std::endl;
+                break;
             }
         }
     }
+
+    void ObjectDetector::drawNMSObject(cv::Mat&background, std::vector<cv::Rect> Rects, Object object ){
+
+        for(int i = 0; i<srcRects.size(); i++){
+            switch (object){
+            case ARM:
+                rectangle(background, srcRects[i], CV_RGB(255, 0, 0), 2);
+            case HAND:
+                rectangle(background, srcRects[i], CV_RGB(0, 255, 0), 2);
+            case OBJECT:
+                rectangle(background, srcRects[i], CV_RGB(0, 0, 255), 2);      
+            default:
+                break;
+            }
+        }
+    }
+
     void ObjectDetector::isolateObject(cv::Mat&inputHSV, cv::Mat&resultHSV, cv::Mat&maskHSV, cv::Scalar minHSV, cv::Scalar maxHSV){
 
         cv::bitwise_and(inputHSV, inputHSV, resultHSV, maskHSV);
+    }
+
+
+    void ObjectDetector::NonMaxSupp(std::vector<cv::Rect> srcRects, std::vector<cv::Rect> resRects, float threshold, float neighboors){
+
+        NMS nms(srcRects);
+        nms.calculateNMS(resRects, threshold, neighboors);
     }
 
     void ObjectDetector::getChannels(std::string colorSpace){
