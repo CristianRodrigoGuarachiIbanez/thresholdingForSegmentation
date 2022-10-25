@@ -95,7 +95,7 @@ namespace ObjDet{
             void duplicateMat(cv::Mat&src, cv::Mat&target);
             void getObject( cv::Mat&img, cv::Scalar low, cv::Scalar high, Limits limits, Object object, bool iso, bool obj);
             void drawObject(cv::Mat&background);
-            void drawNMSObject(cv::Mat&background, std::vector<cv::Rect> Rects, Object object);
+            void drawNMSObject(cv::Mat&background, std::vector<cv::Rect>&Rects, Object object);
             void isolateObject(cv::Mat&inputHSV, cv::Mat&resultHSV, cv::Mat&mask, cv::Scalar minHSV, cv::Scalar maxHSV);
             void splitChannels(cv::Mat&image, cv::Mat&r, cv::Mat&g, cv::Mat&b);
             void NonMaxSupp(std::vector<cv::Rect> srcRects, std::vector<cv::Rect> resRects, float threshold, float neighboors);

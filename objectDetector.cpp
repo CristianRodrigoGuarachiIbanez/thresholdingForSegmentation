@@ -80,12 +80,15 @@ namespace ObjDet{
 
     void ObjectDetector::searchForContoursWithArrayRange( int lowLimit[3], int highLimit[3], Limits limits, Object object, bool iso=false, bool obj=false){
 
-        
+        this->srcRects.clear();
+
         this->getObject(this->img, cv::Scalar(lowLimit[0], lowLimit[1], lowLimit[2]), cv::Scalar(highLimit[0], highLimit[1], highLimit[2]), limits, object, iso, obj);
         
         std::vector<cv::Rect> resRects;
 
-        this->NonMaxSupp(this->srcRects, resRects, 0.5f, 1);
+        if(srcRects.size()>0){
+            this->NonMaxSupp(this->srcRects, resRects, 0.5f, 1);
+        }
         
         if(obj){
             this->drawObject(this->background);
@@ -111,7 +114,6 @@ namespace ObjDet{
         std::vector<std::vector<cv::Point>> contours;
         cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
         
-        this->srcRects.clear();
 
         for (size_t i = 0; i < contours.size(); i++){
             cv::Rect boundRect = boundingRect(contours[i]);
@@ -140,30 +142,31 @@ namespace ObjDet{
             switch (OBJECTS[i].object) {
             case ARM:
                 rectangle(background, OBJECTS[i].rect.tl(), OBJECTS[i].rect.br(), CV_RGB(255, 0, 0), 2);
-                //std::cout << "Point Arm  -> "<< OBJECTS[i].rect.tl() <<" point 2 -> "<< OBJECTS[i].rect.br() << std::endl;
                 break;
             case HAND:
                 rectangle(background, OBJECTS[i].rect.tl(), OBJECTS[i].rect.br(), CV_RGB(0, 255, 0), 2);
-                //std::cout << "Point hand  -> "<< OBJECTS[i].rect.tl() <<" point 2 -> "<< OBJECTS[i].rect.br() << std::endl;
                 break;
             case OBJECT:
                 rectangle(background, OBJECTS[i].rect.tl(), OBJECTS[i].rect.br(), CV_RGB(0, 0, 255), 2);
-                //std::cout << "Point Obj -> "<< OBJECTS[i].rect.tl() <<" point 2 -> "<< OBJECTS[i].rect.br() << std::endl;
                 break;
             }
         }
     }
 
-    void ObjectDetector::drawNMSObject(cv::Mat&background, std::vector<cv::Rect> Rects, Object object ){
+    void ObjectDetector::drawNMSObject(cv::Mat&background, std::vector<cv::Rect>&Rects, Object object ){
 
-        for(int i = 0; i<srcRects.size(); i++){
+        for(int i = 0; i<Rects.size(); i++){
             switch (object){
             case ARM:
-                rectangle(background, srcRects[i], CV_RGB(255, 0, 0), 2);
+                rectangle(background, Rects[i], CV_RGB(255, 0, 0), 2);
+                break;
             case HAND:
-                rectangle(background, srcRects[i], CV_RGB(0, 255, 0), 2);
+                rectangle(background, Rects[i], CV_RGB(0, 255, 0), 2);
+                break;
             case OBJECT:
-                rectangle(background, srcRects[i], CV_RGB(0, 0, 255), 2);      
+                rectangle(background, Rects[i], CV_RGB(0, 0, 255), 2);
+                break;
+      
             default:
                 break;
             }

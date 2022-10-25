@@ -44,7 +44,7 @@ int main(int argc, char * argv[]){
 
         BWImage.searchForContoursWithArrayRange(objectLow, objectHigh, limits, ObjDet::Object::OBJECT, false, false);
 
-        BWImage.searchForContoursWithArrayRange(handLow, handHigh, limits, ObjDet::Object::HAND, false, false);
+         BWImage.searchForContoursWithArrayRange(handLow, handHigh, limits, ObjDet::Object::HAND, false, false);
 
         //cv::imwrite("segmented_output/img_" + std::to_string(i) + ".png", BWImage.getImage());
 
