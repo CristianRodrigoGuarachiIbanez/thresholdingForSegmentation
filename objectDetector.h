@@ -48,7 +48,7 @@ namespace ObjDet{
             cv::Mat getBackground(){
                 if(background.empty()){
                     std::cerr << "Error\n";
-                    std::cerr << "Cannot Read Image\n";
+                    std::cerr << "Cannot Read Image Background\n";
                 }else{
 
                     return background;
@@ -75,7 +75,7 @@ namespace ObjDet{
             cv::Mat getIsolatedImage(){
                 if(isolatedImage.empty()){
                     std::cerr << "Error\n";
-                    std::cerr << "Cannot Read Image\n";
+                    std::cerr << "Cannot Read isolated Image\n";
                 }else{
                         return isolatedImage;
                 }

@@ -18,7 +18,10 @@ namespace ObjDet{
 
     // ---------------------------      ----------------------------
     ObjectDetector::ObjectDetector(cv::Mat&src, int lowLimit[3], int highLimit[3], Limits limit, Object object, bool iso){
-
+        if(src.empty()){
+            std::cerr << "Error\n";
+            std::cerr << "Cannot Read Image in Constructor\n";
+        }
         this->duplicateMat(src, this->background);
         int channels = this->background.channels();
         selectImage(src, this->img, channels);
@@ -26,7 +29,10 @@ namespace ObjDet{
     }
 
     ObjectDetector::ObjectDetector(cv::Mat&image){
-       
+       if(image.empty()){
+            std::cerr << "Error\n";
+            std::cerr << "Cannot Read Image in Constructor\n";
+        }
        this->duplicateMat(image, this->background);
        int channels = image.channels();   
        selectImage(image, this->img, channels);
@@ -181,14 +187,14 @@ namespace ObjDet{
 
     void ObjectDetector::NonMaxSupp(std::vector<cv::Rect> srcRects, std::vector<cv::Rect> resRects, float threshold, float neighboors){
 
-        NMS nms(srcRects);
-        nms.calculateNMS(resRects, threshold, neighboors);
+        nms::NMS NonMaxSupp(srcRects);
+        NonMaxSupp.calculateNMS(resRects, threshold, neighboors);
     }
 
     void ObjectDetector::getChannels(std::string colorSpace){
         if(background.empty()){
             std::cerr << "Error\n";
-            std::cerr << "Cannot Read Image\n";
+            std::cerr << "Cannot Read Image in Channels\n";
         }
         if(colorSpace.compare("hsv")==0){
             cv::cvtColor(background, background, cv::COLOR_BGR2HSV);
